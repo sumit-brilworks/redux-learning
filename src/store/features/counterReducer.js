@@ -1,6 +1,17 @@
-import { createAction, createReducer } from "@reduxjs/toolkit";
+import { createAction, createReducer, nanoid } from "@reduxjs/toolkit";
 
-export const incrementAction = createAction("counter/increment");
+export const incrementAction = createAction(
+  "counter/increment",
+  function prepare(text) {
+    return {
+      payload: {
+        text,
+        id: nanoid(),
+        createdAt: new Date().toISOString(),
+      },
+    };
+  }
+);
 console.log("CreateAction's object", incrementAction);
 
 export const decrementAction = createAction("counter/decrement");
