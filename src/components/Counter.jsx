@@ -1,10 +1,18 @@
 import { Button, Typography } from "@material-tailwind/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement } from "../store/features/CountSlice";
+// import { increment, decrement } from "../store/features/CountSlice";
+import {
+  incrementAction,
+  decrementAction,
+  incrementByCount,
+} from "../store/features/counterReducer";
 
 function Counter() {
-  const counter = useSelector((state) => state.count);
+  const counter = useSelector((state) => {
+    console.log("state", state);
+    return state.counter;
+  });
 
   const dispatch = useDispatch();
   return (
@@ -15,7 +23,7 @@ function Counter() {
           variant="filled"
           color="blue"
           className="hover:bg-orange-800"
-          onClick={() => dispatch(increment())}
+          onClick={() => dispatch(incrementAction())}
         >
           Increment
         </Button>
@@ -23,9 +31,17 @@ function Counter() {
           variant="filled"
           color="blue"
           className="hover:bg-orange-800"
-          onClick={() => dispatch(decrement())}
+          onClick={() => dispatch(decrementAction())}
         >
           Decrement
+        </Button>
+        <Button
+          variant="filled"
+          color="blue"
+          className="hover:bg-orange-800"
+          onClick={() => dispatch(incrementByCount(30))}
+        >
+          Increment By 20
         </Button>
       </div>
     </div>
